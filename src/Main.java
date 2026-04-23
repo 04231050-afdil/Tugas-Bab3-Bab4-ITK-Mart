@@ -62,7 +62,43 @@ public class Main {
         }
     }
 
+    static class Transaksi {
+        public static void proses(Pembeli pembeli, Barang barang) {
+
+            System.out.println("\n" + pembeli.getNama() +
+                    " mencoba membeli " + barang.getNama());
+
+            if (pembeli.getSaldo() < barang.getHarga()) {
+                System.out.println("❌ Transaksi gagal: saldo tidak cukup");
+            } else if (barang.getStok() <= 0) {
+                System.out.println("❌ Transaksi gagal: stok habis");
+            } else {
+                pembeli.kurangiSaldo(barang.getHarga());
+                barang.kurangiStok();
+                pembeli.tambahPoin();
+
+                System.out.println("✅ Transaksi berhasil!");
+                System.out.println("Sisa saldo: " + pembeli.getSaldo());
+                System.out.println("Sisa stok: " + barang.getStok());
+                System.out.println("Poin pembeli: " + pembeli.getPoin());
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println("Struktur + method siap");
+
+        Barang indomie = new Barang("Indomie", 3000, 1);
+
+        // gagal (saldo kurang)
+        Pembeli p1 = new Pembeli("Afdil", 2000);
+        Transaksi.proses(p1, indomie);
+
+        // sukses
+        Pembeli p2 = new Pembeli("Budi", 10000);
+        Transaksi.proses(p2, indomie);
+
+        // gagal (stok habis)
+        Pembeli p3 = new Pembeli("Citra", 10000);
+        Transaksi.proses(p3, indomie);
     }
 }
