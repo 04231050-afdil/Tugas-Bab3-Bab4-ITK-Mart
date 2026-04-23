@@ -22,6 +22,12 @@ public class Main {
         public int getStok() {
             return stok;
         }
+
+        public void kurangiStok() {
+            if (stok > 0) {
+                stok--;
+            }
+        }
     }
 
     static class Pembeli {
@@ -46,9 +52,17 @@ public class Main {
         public int getPoin() {
             return poin;
         }
+
+        private void kurangiSaldo(int jumlah) {
+            saldo -= jumlah;
+        }
+
+        private void tambahPoin() {
+            poin += 10;
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println("Program ITK-Mart dimulai");
+        System.out.println("Struktur + method siap");
     }
 }
